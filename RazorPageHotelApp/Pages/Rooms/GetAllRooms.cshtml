@@ -1,0 +1,66 @@
+﻿@page
+@model RazorPageHotelApp.Pages.Rooms.GetAllRoomsModel
+@{
+    ViewData["Title"] = "All Rooms";
+}
+
+<p>@Model.InfoText</p>
+
+<form>
+    <p>
+        Search: <input type="text" asp-for="FilterCriteria" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<h4>List of rooms</h4>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Room No
+        </th>
+        <th>
+            Hotel No
+        </th>
+        <th>
+            Types
+        </th>
+        <th>
+            Price
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @if (Model.Rooms.Count() != 0)
+    {
+        @foreach (var item in Model.Rooms)
+        {
+        <tr>
+            <td>
+                @item.RoomNr
+            </td>
+            <td>
+                @item.HotelNr
+            </td>
+            <td>
+                @item.Types
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                <p>
+                    <a asp-page="/Rooms/UpdateRoom" asp-route-id="@item.RoomNr" asp-route-hotelNr="@item.HotelNr">Update</a>
+                </p>
+            </td>
+            <td>
+                <p>
+                    <a asp-page="/Rooms/DeleteRoom" asp-route-id="@item.RoomNr" asp-route-hotelNr="@item.HotelNr">Delete</a>
+                </p>
+            </td>
+        </tr>
+        }
+    }
+</table>

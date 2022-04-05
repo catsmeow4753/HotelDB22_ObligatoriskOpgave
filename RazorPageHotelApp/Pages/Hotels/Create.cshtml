@@ -1,0 +1,34 @@
+﻿@page
+@model RazorPageHotelApp.Pages.Hotels.CreateModel
+@{
+    ViewData["Title"] = "Create Hotel";
+}
+
+<p>@Model.InfoText</p>
+
+<h1>Create hotel</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="All">
+                <div class="form-group">
+                    <label asp-for="@Model.Hotel.HotelNr"></label><br />
+                    <input asp-for="@Model.Hotel.HotelNr">
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Hotel.Navn"></label><br />
+                    <input asp-for="@Model.Hotel.Navn">
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Hotel.Adresse"></label><br />
+                    <input asp-for="@Model.Hotel.Adresse">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" />
+                    <a asp-page="/Hotels/GetAllHotels"><input type="button" value="Cancel"/> </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
