@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using RazorPageHotelApp.Interfaces;
 using RazorPageHotelApp.Models;
 
@@ -32,7 +33,24 @@ namespace RazorPageHotelApp.Pages.Rooms
 
         public async Task<IActionResult> OnPost()
         {
-            await RoomService.DeleteRoomAsync(Room.RoomNr, Room.HotelNr);
+            InfoText = "";
+
+            try
+            {
+                await RoomService.DeleteRoomAsync(Room.RoomNr, Room.HotelNr);
+            }
+            catch (SqlException sqlEx)
+            {
+                InfoText = "Database Error\n" + sqlEx.Message;
+
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                InfoText = "General Error\n" + ex.Message;
+
+                return Page();
+            }
 
             return RedirectToPage("GetAllRooms");
         }

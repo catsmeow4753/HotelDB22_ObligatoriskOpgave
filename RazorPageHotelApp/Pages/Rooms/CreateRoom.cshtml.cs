@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using RazorPageHotelApp.Interfaces;
 using RazorPageHotelApp.Models;
 
@@ -46,7 +47,24 @@ namespace RazorPageHotelApp.Pages.Rooms
                 return Page();
             }
 
-            await RoomService.CreateRoomAsync(Room);
+            InfoText = "";
+
+            try
+            {
+                await RoomService.CreateRoomAsync(Room);
+            }
+            catch (SqlException sqlEx)
+            {
+                InfoText = "Database Error\n" + sqlEx.Message;
+
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                InfoText = "General Error\n" + ex.Message;
+
+                return Page();
+            }
 
             return RedirectToPage("GetAllRooms");
         }

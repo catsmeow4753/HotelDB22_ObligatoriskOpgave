@@ -25,7 +25,7 @@ namespace RazorPageHotelApp.Pages.Rooms
             roomService = rService;
         }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             InfoText = "";
 
@@ -48,6 +48,8 @@ namespace RazorPageHotelApp.Pages.Rooms
             {
                 InfoText = "General Error\n" + ex.Message;
             }
+
+            return Page();
         }
     }
 }
